@@ -8,8 +8,6 @@
 using namespace std;
 
 int movieSelection() {
-    // TODO: Ask user which movie they want to watch. Return the movieCode.
-    // Assigned to : Nayli
     
     int movieCode = 0;
 
@@ -39,8 +37,6 @@ int movieSelection() {
 }
 
 float ticketOrdering(int movieCode) {
-    // TODO: Ask user how many tickets they want to buy and of which type. Return the total price of all tickets.
-    // Assigned to : Ada
  	
  	int adultQuantity = -1, childQuantity = -1;
  	float ticketTotal, adultPrice, childPrice;
@@ -99,62 +95,67 @@ float ticketOrdering(int movieCode) {
 }
 
 float concessionStand(int &concessionSet) {
-    // TODO: Ask user for concessions they want to buy. Return total value of all concessions.
-    // Assigned to : Adrin
     
     char answer = 'O';
     float concessionTotal = 0;
+    concessionSet = 0;
     
     cout << endl; //space
     cout << "-----------------------------------------------------------------------------"<<endl;
     cout << "-----------------------------CONCESSION SELECTION----------------------------"<<endl;
     cout << "-----------------------------------------------------------------------------"<<endl;
-            
-   	cout << "Would you like to order a set of concession? [Y/N]" << endl;
-
-   	cout << "Your choice : " ;
-   	cin >> answer;
- 
-	if ( answer == 'Y') {
-	
-	}
-	else if ( answer == 'N') {
-		
-		cout << "You did not order anything from the concession stand" << endl;
-		
-		return 0;
-	}
-	else {
-		
-		cout << "Please only input either Y or N" << endl;
-	}
-	
-	cout << "Please order a concession set from the selection below." << endl;
     
-	cout << "[1] Rilidana signature soda + caramel popcorn" << endl;
-	cout << "[2] Rilindana signature soda" << endl;
-	cout << "[3] Caramel popcorn" << endl;
-	cout << "" << endl; //space
+	while (answer != 'Y' && answer != 'N') {
+		
+		cout << "Would you like to order a set of concession? [Y/N]" << endl;
 	
-	cout << "Your concession set choice : " ;
-	cin >> concessionSet;
+	   	cout << "Your choice : " ;
+	   	cin >> answer;
+	 
+		if ( answer == 'N') {
+			
+			cout << "You did not order anything from the concession stand" << endl;
+			
+			return 0;
+		}
+		else if ( answer != 'Y') {
+			
+			cout << "Please only input either Y or N" << endl;
+		}
+	
+	}     
 
+	while (concessionSet < 1 || concessionSet > 3) {
+			
+		cout << "Please order a concession set from the selection below." << endl;
+	    
+		cout << "[1] Rilidana signature soda + caramel popcorn" << endl;
+		cout << "[2] Rilindana signature soda" << endl;
+		cout << "[3] Caramel popcorn" << endl;
+		cout << endl; //space
+		
+		cout << "Your concession set choice : " ;
+		cin >> concessionSet;
+	
+		if (concessionSet < 1 || concessionSet > 3) {
+			
+			cout << "Please enter a valid concession set"<<endl;
+		}
+	}
+	
 	if ( concessionSet == 1) {
 		
-		concessionTotal = concessionTotal + 14.50;
+		concessionTotal = 14.50;
 	}
 	else if ( concessionSet == 2) {
 		
-		concessionTotal = concessionTotal + 2.50;
+		concessionTotal = 2.50;
 	}
 	else if ( concessionSet == 3) {
 		
-		concessionTotal = concessionTotal + 12.00;
+		concessionTotal = 12.00;
 	}
-	else {
-		
-		cout << "Please enter a valid concession set"<<endl;
-	}
+	
 	return concessionTotal;
 }
 	
@@ -175,8 +176,6 @@ int main() {
         
         concessionTotal = concessionStand(concessionSet);
     
-        // TODO: Output order totals
-        // Assigned to : Ada
         // Sum all of the price of concessions and tickets and display summary of totals    
         cout << "-----------------------------------------------------------------------------"<<endl;
         cout << "-----------------------------------RECEIPT-----------------------------------"<<endl;
@@ -192,9 +191,6 @@ int main() {
         cout << "------------------------------------------------------------------------------"<<endl;
 		cout << endl; //space
 		
-        // TODO: Ask user if they want to place another order
-        // Assigned to : Ada
-        
         cout << "Would you like to order more tickets ? [Y/N] " << endl;
         cout << "Your choice : " ;
         
@@ -202,11 +198,8 @@ int main() {
 
     } while ( answer != 'N'); // Check if user wants to place another order
     
-    if ( answer == 'N') {
-    	cout << "Thank you for ordering with Rinlidana Cinema Booking System. Goodbye!" << endl;
-	}
-
-
+    cout << "Thank you for ordering with Rinlidana Cinema Booking System. Goodbye!" << endl;
+	
     return 0;
 }
 
