@@ -9,14 +9,17 @@ using namespace std;
 
 float concessionStand() {
     // TODO: Ask user for concessions they want to buy. Return total value of all concessions.
+    // Assigned to : Adrin
 }
 
 int movieSelection() {
     // TODO: Ask user which movie they want to watch. Return the movieCode.
+    // Assigned to : Nayli
 }
 
 float ticketOrdering() {
     // TODO: Ask user how many tickets they want to buy and of which type. Return the total price of all tickets.
+    // Assigned to : Ada
 }
 
 int main() {
@@ -35,10 +38,12 @@ int main() {
         ticketTotal = ticketOrdering();
 
         // TODO: Output order totals
-        // Sum all of the price of concessions and tickets and display summary of totals
+        // Assigned to : Ada
+        // Sum all of the price of concessions and tickets and display summary of totals    
         cout << "Your total is: " << concessionTotal + ticketTotal << endl;
 
         // TODO: Ask user if they want to place another order
+        // Assigned to : Ada
 
     } while (false); // Check if user wants to place another order
     
