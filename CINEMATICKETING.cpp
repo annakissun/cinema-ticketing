@@ -129,9 +129,9 @@ float concessionStand(int &concessionSet) {
 			
 		cout << "Please order a concession set from the selection below." << endl;
 	    
-		cout << "[1] Rilidana signature soda + caramel popcorn" << endl;
-		cout << "[2] Rilindana signature soda" << endl;
-		cout << "[3] Caramel popcorn" << endl;
+		cout << "[1] Rilidana signature soda + caramel popcorn : RM 14.50" << endl;
+		cout << "[2] Rilindana signature soda                  : RM  2.50" << endl;
+		cout << "[3] Caramel popcorn                           : RM 12.00" << endl;
 		cout << endl; //space
 		
 		cout << "Your concession set choice : " ;
