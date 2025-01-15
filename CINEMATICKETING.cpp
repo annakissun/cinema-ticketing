@@ -98,6 +98,7 @@ float concessionStand(int &concessionSet) {
     
     char answer = 'O';
     float concessionTotal = 0;
+    int concessionQuantity = 0;
     concessionSet = 0;
     
     cout << endl; //space
@@ -136,6 +137,8 @@ float concessionStand(int &concessionSet) {
 		
 		cout << "Your concession set choice : " ;
 		cin >> concessionSet;
+		cout << "Your concession set quantity : " ;
+		cin >> concessionQuantity;
 	
 		if (concessionSet < 1 || concessionSet > 3) {
 			
@@ -145,15 +148,15 @@ float concessionStand(int &concessionSet) {
 	
 	if ( concessionSet == 1) {
 		
-		concessionTotal = 14.50;
+		concessionTotal = 14.50 * concessionQuantity;
 	}
 	else if ( concessionSet == 2) {
 		
-		concessionTotal = 2.50;
+		concessionTotal = 2.50 * concessionQuantity;
 	}
 	else if ( concessionSet == 3) {
 		
-		concessionTotal = 12.00;
+		concessionTotal = 12.00 * concessionQuantity;
 	}
 	
 	return concessionTotal;
