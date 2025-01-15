@@ -8,6 +8,8 @@ using namespace std;
 
 int movieSelection() {
     
+    const int movieCount = 2;
+    string movies [movieCount] = {"Wicked", "Inside Out 2"};
     int movieCode = 0;
 
     cout << endl; //space
@@ -15,17 +17,18 @@ int movieSelection() {
     cout << "-------------------------------MOVIE SELECTION-------------------------------"<<endl;
     cout << "-----------------------------------------------------------------------------"<<endl;
     
-	while (movieCode < 1 || movieCode > 2)  {
+	while (movieCode < 1 || movieCode > movieCount)  {
 		cout << "Please order a movie ticket from the selection below." << endl;
 	    
-	    cout << "[1] Wicked" << endl;
-	    cout << "[2] Inside Out 2" << endl;
-	    cout << endl; //space
-			    
-	    cout << "Your movie choice : " ;
+	    for (int i = 0; i < movieCount; i++) {
+            cout << "[" << (i + 1) << "] " << movies[i] << endl;
+    	}
+    	cout << endl; //space
+    	
+	    cout << "Your movie choice : " << movies[movieCode - 1];
 	    cin >> movieCode;
 
-		if (movieCode < 1 || movieCode > 2) {
+		if (movieCode < 1 || movieCode > movieCount) {
 			
 			cout << "Please enter a valid choice" << endl;
 			cout << endl; //space
