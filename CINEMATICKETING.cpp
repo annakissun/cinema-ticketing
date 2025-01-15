@@ -4,7 +4,6 @@
 #include <cstdlib>
 #include <cmath>
 
-// Meow meow meow meow
 using namespace std;
 
 int movieSelection() {
