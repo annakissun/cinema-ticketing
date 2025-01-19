@@ -10,30 +10,47 @@ int movieSelection() {
     
     const int movieCount = 2;
     string movies [movieCount] = {"Wicked", "Inside Out 2"};
-    int movieCode = 0;
+    int movieCode = -1;
 
     cout << endl; //space
     cout << "-----------------------------------------------------------------------------"<<endl;
     cout << "-------------------------------MOVIE SELECTION-------------------------------"<<endl;
-    cout << "-----------------------------------------------------------------------------"<<endl;
+    cout << "-----------------------------------------------------------------------------"<<endl;  
+    cout << "----------------------------STUDENTS GET 15% OFF!----------------------------"<<endl;
+    cout << "-----------------------------------------------------------------------------"<<endl;  
     
-	while (movieCode < 1 || movieCode > movieCount)  {
-		cout << "Please order a movie ticket from the selection below." << endl;
+	do {
+		cout << "Please choose the movie you would like to watch from the selection below." << endl;
+	    cout << endl; //space
 	    
 	    for (int i = 0; i < movieCount; i++) {
-            cout << "[" << (i + 1) << "] " << movies[i] << endl;
+	    	
+	    	if (i + 1 == 1) {
+	    		cout << "[1]" << movies[i]; 
+          		cout << " : RM30.00 (Adult) // RM22.50 (Child)" << endl; 
+			}
+			else if (i + 1 == 2) {
+				cout << "[2]" << movies[i]; 
+          		cout << " : RM24.00 (Adult) // RM12.50 (Child)" << endl; 
+			}
     	}
+    	
+    	cout << endl; //space
+    	cout << "Children: 12 and under // Adult: 13 and above" << endl;
+    	cout << endl; //space
+    	cout << "If you don't want to purchase any movie tickets, enter 0."<< endl;
     	cout << endl; //space
     	
 	    cout << "Your movie choice : " << movies[movieCode - 1];
 	    cin >> movieCode;
-
-		if (movieCode < 1 || movieCode > movieCount) {
-			
+		
+		if (movieCode < 0 || movieCode > 2 && movieCode != 0) {
 			cout << "Please enter a valid choice" << endl;
 			cout << endl; //space
-		}
-	}  
+			}
+	
+		
+	} while (movieCode < 0 || movieCode > 2 && movieCode != 0); 
 
 	return movieCode;
 }
@@ -96,7 +113,7 @@ float ticketOrdering(int movieCode) {
 	return ticketTotal;
 }
 
-float concessionStand(int &concessionSet) {
+float fnbCounter(int &concessionSet) {
     
     char answer = 'O';
     float concessionTotal = 0;
@@ -110,12 +127,12 @@ float concessionStand(int &concessionSet) {
     
 	while (answer != 'Y' && answer != 'N') {
 		
-		cout << "Would you like to order a set of concession? [Y/N]" << endl;
+		cout << "Would you like to order any food and beverages? [Y/N]" << endl;
 	
 	   	cout << "Your choice : " ;
 	   	cin >> answer;
 	 
-		if ( answer == 'N') {
+		if ( answer == 'N' || answer == 'n' ) {
 			
 			cout << "You did not order anything from the concession stand" << endl;
 			
@@ -177,9 +194,9 @@ int main() {
 	
         movieCode = movieSelection();
 
-        ticketTotal = ticketOrdering(movieCode);
+        ticketTotal = fnbCounter(movieCode);
         
-        concessionTotal = concessionStand(concessionSet);
+        concessionTotal = fnbCounter(concessionSet);
     
         // Sum all of the price of concessions and tickets and display summary of totals    
         cout << "-----------------------------------------------------------------------------"<<endl;
