@@ -1,227 +1,321 @@
 #include <iostream>
-#include <sstream>
 #include <string>
-#include <cstdlib>
-#include <cmath>
 
 using namespace std;
 
 int movieSelection() {
     
-    const int movieCount = 2;
-    string movies [movieCount] = {"Wicked", "Inside Out 2"};
+    string movies [2] = {"Wicked", "Inside Out 2"};
+    float adultprices [2] = {30.00, 24.00};
+    float childprices [2] = {22.50, 12.50};
     int movieCode = -1;
 
     cout << endl; //space
-    cout << "-----------------------------------------------------------------------------"<<endl;
-    cout << "-------------------------------MOVIE SELECTION-------------------------------"<<endl;
-    cout << "-----------------------------------------------------------------------------"<<endl;  
-    cout << "----------------------------STUDENTS GET 15% OFF!----------------------------"<<endl;
-    cout << "-----------------------------------------------------------------------------"<<endl;  
-    
-	do {
-		cout << "Please choose the movie you would like to watch from the selection below." << endl;
+    cout << "-----------------------------------------------------------------------------" << endl;
+    cout << "-------------------------------MOVIE SELECTION-------------------------------" << endl;
+    cout << "-----------------------------------------------------------------------------" << endl;  
+    cout << "----------------------------STUDENTS GET 15% OFF!----------------------------" << endl;
+    cout << "-----------------------------------------------------------------------------" << endl;  
+ 
+ 	cout << "Please choose the movie you would like to watch from the selection below." << endl;
 	    cout << endl; //space
 	    
-	    for (int i = 0; i < movieCount; i++) {
+	    for (int i = 0; i < 2; i++) {
 	    	
-	    	if (i + 1 == 1) {
-	    		cout << "[1]" << movies[i]; 
-          		cout << " : RM30.00 (Adult) // RM22.50 (Child)" << endl; 
-			}
-			else if (i + 1 == 2) {
-				cout << "[2]" << movies[i]; 
-          		cout << " : RM24.00 (Adult) // RM12.50 (Child)" << endl; 
-			}
+	    	cout << "[" << i + 1 << "] " << movies[i] << " : RM" << adultprices[i] << " (Adult) // RM" << childprices[i] << " (Child)" << endl;
     	}
     	
     	cout << endl; //space
-    	cout << "Children: 12 and under // Adult: 13 and above" << endl;
+    	cout << "Children: 12 and under // Adult: 13 and above" << endl;	
     	cout << endl; //space
     	cout << "If you don't want to purchase any movie tickets, enter 0."<< endl;
     	cout << endl; //space
-    	
-	    cout << "Your movie choice : " << movies[movieCode - 1];
+    	   
+	while (movieCode < 0 || movieCode > 2) {
+		
+	    cout << "Your movie choice : ";
 	    cin >> movieCode;
-		
-		if (movieCode < 0 || movieCode > 2 && movieCode != 0) {
-			cout << "Please enter a valid choice" << endl;
+
+		if (movieCode < 0 || movieCode > 2) {
+			cout << "Please enter a valid movie code. (0/1/2)" << endl;
 			cout << endl; //space
-			}
-	
-		
-	} while (movieCode < 0 || movieCode > 2 && movieCode != 0); 
+			}	
+	}
 
 	return movieCode;
 }
 
-float ticketOrdering(int movieCode) {
- 	
- 	int adultQuantity = -1, childQuantity = -1;
- 	float ticketTotal, adultPrice, childPrice;
- 	string movieName; 
- 	
- 	cout << endl; //space
-    cout << "-----------------------------------------------------------------------------"<<endl;
-    cout << "------------------------------TICKET QUANTITIES------------------------------"<<endl;
-    cout << "-----------------------------------------------------------------------------"<<endl;
-        
- 	if ( movieCode == 1 ) {
- 		
- 		adultPrice = 28.00;
- 		childPrice = 12.00;
- 		movieName = "Wicked";
-	}
-	else if ( movieCode == 2 ) {
-	 	
-	 	adultPrice = 18.00;
- 		childPrice = 5.00;
- 		movieName = "Inside Out 2";
-	}
+int adultTicket (int movieCode) {
 	
-	cout << "Your chosen movie is " << movieName << endl;
-	cout << endl; //space
-	cout << "Children are all of those who are under 12 years old." << endl;
-	cout << "Everyone above that age are considered adults and will need adult tickets." << endl;
-	cout << endl; //space
-	cout << "Adult price per ticket : RM " << adultPrice << endl;
-	cout << "Child price per ticket : RM " << childPrice << endl;
-	cout << endl; //space
+	int adultQuantity;
 	
-	while (adultQuantity < 0) {
-		cout << "Enter the quantity of adult tickets you wish to purchase : ";
+	if (movieCode != 0) {
+		
+		cout << "-----------------------------------------------------------------------------" << endl;
+		cout << "--------------------------------TICKET COUNTER-------------------------------" << endl;
+		cout << "-----------------------------------------------------------------------------" << endl;
+		cout << "Please enter the quantity of adult tickets you would like to purchase." << endl;
+		cout << "The quantity of tickets ordered : " ;
 		cin >> adultQuantity;
-		
-		if (adultQuantity < 0) {
-			
-			cout << "Please enter a valid quantity" << endl;
-		} 
+		cout << endl; //space
 	}
-	
-	while (childQuantity < 0) {
-		cout << "Enter the quantity of child tickets you wish to purchase : ";
-		cin >> childQuantity;
+	else {
 		
-		if (childQuantity < 0) {
-			
-			cout << "Please enter a valid quantity" << endl;
-		} 
+		adultQuantity = 0;
 	}
-	
-	ticketTotal = (adultQuantity * adultPrice) + (childQuantity * childPrice);
-	
-	return ticketTotal;
+	return adultQuantity;
 }
 
-float fnbCounter(int &concessionSet) {
-    
-    char answer = 'O';
-    float concessionTotal = 0;
-    int concessionQuantity = 0;
-    concessionSet = 0;
+int childTicket (int movieCode) {
+	
+	int childQuantity;
+	
+	if (movieCode != 0) {
+		
+		cout << "Please enter the quantity of child tickets you would like to purchase." << endl;
+		cout << "The quantity of tickets ordered : " ;
+		cin >> childQuantity;
+		cout << endl; //space
+	}
+	else {
+		
+		childQuantity = 0;
+	}
+	return childQuantity;
+}
+
+float adultPrice (int adultQuantity, int movieCode) {
+	
+	float adultTotal;
+	
+	if (movieCode == 1) {
+		
+		adultTotal = adultQuantity * 30;
+	}
+	else if (movieCode == 2) {
+		
+		adultTotal = adultQuantity * 24;
+	}
+	else if (movieCode == 0){
+		
+		adultTotal = 0;
+	}
+	return adultTotal;
+}
+
+float childPrice (int childQuantity, int movieCode) {
+	
+	float childTotal;
+	
+	if (movieCode == 1) {
+		
+		childTotal = childQuantity * 22.50;
+	}
+	else if (movieCode == 2) {
+		
+		childTotal = childQuantity * 12.50;
+	}
+	else if (movieCode == 0){
+		
+		childTotal = 0;
+	}
+	return childTotal;
+}
+
+string movieName (int movieCode) {
+	
+	string movieTitle;
+	
+	if (movieCode == 1) {
+		
+		movieTitle = "WICKED";
+	}
+	else if (movieCode == 2) {
+		
+		movieTitle = "INSIDE OUT 2";
+	}
+	else {
+		
+		movieTitle = "NO MOVIE CHOSEN";
+	}
+	return movieTitle;
+}
+
+float student (float adultTotal, float childTotal, int movieCode) {
+	
+	float studentDiscount;
+	string studentAnswer;
+	
+	if (movieCode != 0) {
+		
+		while (studentAnswer != "Y" && studentAnswer != "y" && studentAnswer != "N" && studentAnswer != "n") {
+			
+			cout << "Are you a student? [Y/N]" << endl;
+			cout << "Your answer : " ;
+			cin >> studentAnswer;
+			
+			if (studentAnswer != "Y" && studentAnswer != "y" && studentAnswer != "N" && studentAnswer != "n") {
+				
+				cout << "Please enter Y or N only." << endl;
+				cout << endl; //space
+			}
+		}
+		
+		if (studentAnswer == "Y" || studentAnswer == "y") {
+			
+			studentDiscount = (adultTotal * 15/100) + (childTotal * 15/100);
+		}
+		else if (studentAnswer == "N" || studentAnswer == "n") {
+			
+			studentDiscount = 0;
+		}
+	}
+	else {
+		
+		studentDiscount = 0;
+	}
+	return studentDiscount;
+}
+
+float fnbCounter() {
+
+    string fnb [3] = {"Rinlinada signature soda + caramel popcorn", "Rinlinada signature soda", "Caramel popcorn"};
+	float price [3] = {14.5, 2.5, 12};
+	string answer = "0";
+	string fnbSet = "0";
+	float fnbPrice, fnbTotal;
+	int fnbQuantity = 0;
     
     cout << endl; //space
-    cout << "-----------------------------------------------------------------------------"<<endl;
-    cout << "-----------------------------CONCESSION SELECTION----------------------------"<<endl;
-    cout << "-----------------------------------------------------------------------------"<<endl;
+    cout << "-----------------------------------------------------------------------------" << endl;
+    cout << "------------------------------FOOD AND BEVERAGES-----------------------------" << endl;
+    cout << "-----------------------------------------------------------------------------" << endl;
     
-	while (answer != 'Y' && answer != 'N') {
+	while (answer != "Y" && answer != "y" && answer != "N" && answer != "n") {
 		
 		cout << "Would you like to order any food and beverages? [Y/N]" << endl;
 	
 	   	cout << "Your choice : " ;
 	   	cin >> answer;
-	 
-		if ( answer == 'N' || answer == 'n' ) {
+	   	
+	   	if (answer != "Y" && answer != "y" && answer != "N" && answer != "n") {
+		cout << "Please enter Y or N only." << endl ;
+		cout << endl; //space
+		} 
+	} 
+	
+	if ( answer == "N" || answer == "n" ) {
 			
-			cout << "You did not order anything from the concession stand" << endl;
+			cout << "You did not order any food and beverages." << endl;
 			
 			return 0;
 		}
-		else if ( answer != 'Y') {
-			
-			cout << "Please only input either Y or N" << endl;
-		}
-	
-	}     
+	else if ( answer == "Y" || answer == "y") {	
 
-	while (concessionSet < 1 || concessionSet > 3) {
+		while (fnbSet != "1" && fnbSet != "2" && fnbSet != "3") {
 			
-		cout << "Please order a concession set from the selection below." << endl;
-	    
-		cout << "[1] Rilidana signature soda + caramel popcorn : RM 14.50" << endl;
-		cout << "[2] Rilindana signature soda                  : RM  2.50" << endl;
-		cout << "[3] Caramel popcorn                           : RM 12.00" << endl;
-		cout << endl; //space
-		
-		cout << "Your concession set choice : " ;
-		cin >> concessionSet;
-		cout << "Your concession set quantity : " ;
-		cin >> concessionQuantity;
+			cout << endl; //space
+			cout << "Please order any food and beverages set from the selection below." << endl;
+			cout << endl; //space
+				
+		    for (int i = 0; i < 3; i++) {
+		    	
+		    	cout << "[" << i + 1 << "] " << fnb[i] << " : RM" << price[i] << endl;
+			}	
 	
-		if (concessionSet < 1 || concessionSet > 3) {
+			cout << endl; //space
+		
+			cout << "Your food and beverages set choice : " ;
+			cin >> fnbSet;
+
+			if (fnbSet != "1" && fnbSet != "2" && fnbSet != "3") {
+			cout << "Please enter a valid code for the set you want." << endl;
+		
+			}
 			
-			cout << "Please enter a valid concession set"<<endl;
+			cout << "The quantity of sets ordered : ";
+			cin >> fnbQuantity;
 		}
 	}
-	
-	if ( concessionSet == 1) {
-		
-		concessionTotal = 14.50 * concessionQuantity;
-	}
-	else if ( concessionSet == 2) {
-		
-		concessionTotal = 2.50 * concessionQuantity;
-	}
-	else if ( concessionSet == 3) {
-		
-		concessionTotal = 12.00 * concessionQuantity;
+	else {
+		cout << "Please enter Y or N only." ;
+		cout << endl; //space
 	}
 	
-	return concessionTotal;
+	if ( fnbSet == "1") {
+		
+		fnbPrice = 14.50;
+	}
+	else if ( fnbSet == "2") {
+		
+		fnbPrice = 2.50 ;
+	}
+	else if ( fnbSet == "3") {
+		
+		fnbPrice = 12.00;
+	}
+
+	fnbTotal = fnbPrice * fnbQuantity;
+	
+	return fnbTotal;
 }
 	
 int main() {
-
-	char answer;
-	int movieCode, concessionSet = 0, adultQuantity, childQuantity;
-    float concessionTotal, ticketTotal;
-    
-	cout << "Welcome to Rinlidana Cinema Booking System!" << endl;
-
 	
+	string answer = "Y";
+	string movieTitle;
+	int childQuantity, adultQuantity, movieCode;
+    float adultTotal, childTotal, fnbTotal, studentDiscount;
+    
+	cout << "Welcome to Rinlinada Cinema Booking System!" << endl;
+
     do {
-	
-        movieCode = movieSelection();
-
-        ticketTotal = fnbCounter(movieCode);
-        
-        concessionTotal = fnbCounter(concessionSet);
+			
+		fnbTotal = fnbCounter();
+		movieCode = movieSelection();
+		adultQuantity = adultTicket(movieCode);
+		adultTotal = adultPrice (adultQuantity, movieCode);
+		childQuantity = childTicket(movieCode);
+		childTotal = childPrice (childQuantity, movieCode);
+		studentDiscount = student(adultTotal,childTotal, movieCode);
+		movieTitle = movieName (movieCode);
     
-        // Sum all of the price of concessions and tickets and display summary of totals    
-        cout << "-----------------------------------------------------------------------------"<<endl;
-        cout << "-----------------------------------RECEIPT-----------------------------------"<<endl;
-        cout << "-----------------------------------------------------------------------------"<<endl;
-        cout << "Movie code chosen : " << movieCode << endl;
-        cout << "Concession set chosen : " << concessionSet << endl;
-        cout << "Total price of tickets ordered : RM " << ticketTotal << endl;
-        cout << "Total price of concessions ordered : RM " << concessionTotal << endl;
+        // Summary of all totals calculated
+        cout << "-----------------------------------------------------------------------------" << endl;
+        cout << "-----------------------------------RECEIPT-----------------------------------" << endl;
+        cout << "-----------------------------------------------------------------------------" << endl;
+        cout << "MOVIE TITLE : " << movieTitle << endl;
+        cout << "ADULT TICKETS PURCHASED : " << adultQuantity << endl;
+        cout << "CHILD TICKETS PURCHASED : " << childQuantity << endl;
+        cout << "ADULT TOTAL (RM) : " << adultTotal << endl;
+        cout << "CHILD TOTAL (RM) : " << childTotal << endl;
+        cout << "AMOUNT TO BE PAID FOR F&B (RM) : " << fnbTotal << endl;
+        cout << "TOTAL AMOUNT TO BE PAID (RM) : " << fnbTotal + ((adultTotal + childTotal) - studentDiscount) << endl;
         
-        cout << "Your total is : RM " << concessionTotal + ticketTotal << endl;
-        cout << "------------------------------------------------------------------------------"<<endl;
-        cout << "------------------------------------------------------------------------------"<<endl;
-        cout << "------------------------------------------------------------------------------"<<endl;
+        cout << "------------------------------------------------------------------------------" << endl;
+        cout << "------------------------------------------------------------------------------" << endl;
+        cout << "------------------------------------------------------------------------------" << endl;
 		cout << endl; //space
-		
-        cout << "Would you like to order more tickets ? [Y/N] " << endl;
-        cout << "Your choice : " ;
-        
-        cin >> answer;
 
-    } while ( answer != 'N'); // Check if user wants to place another order
-    
-    cout << "Thank you for ordering with Rinlidana Cinema Booking System. Goodbye!" << endl;
+        do {
+        			
+			cout << "Would you like to make another purchase ? [Y/N]" << endl;
+			cout << "Your choice : " ;
+			
+			cin >> answer;     
+
+        	if (answer != "Y" && answer != "y" && answer != "N" && answer != "n") {
+        	
+        	cout << "Please enter only Y or N" << endl;
+        	cout << endl; //space
+			}
+			
+		} while (answer != "Y" && answer != "y" && answer != "N" && answer != "n");
+       
+    } while ( answer == "Y" || answer == "y" ); // Check if user wants to place another order
 	
+	cout << endl; //space
+	cout << "Thank you for ordering with Rinlinada Cinema Booking System. Goodbye!";
     return 0;
 }
 
