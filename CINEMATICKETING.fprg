@@ -4,19 +4,20 @@
         <attribute name="name" value="FINAL"/>
         <attribute name="authors" value="hamna"/>
         <attribute name="about" value=""/>
-        <attribute name="saved" value="2025-01-28 08:48:49 PM"/>
+        <attribute name="saved" value="2025-01-30 06:45:29 PM"/>
         <attribute name="created" value="aGFtbmE7SEFNTkE7MjAyNS0wMS0xNzsxMTowNjo0NSBBTTsyMTM4"/>
         <attribute name="edited" value="aGFtbmE7SEFNTkE7MjAyNS0wMS0xNzsxMTo1OTozMSBBTTs1O2hhbW5hO0hBTU5BOzIwMjUtMDEtMTI7MDE6MTU6MjIgUE07Q0lORU1BVElDS0VUSU5HU1lTVEVNLmZwcmc7NjU3OA=="/>
         <attribute name="edited" value="aGFtbmE7SEFNTkE7MjAyNS0wMS0xNzswMToxNzoxNSBQTTs1OzIyNjM="/>
-        <attribute name="edited" value="YW5uYWs7QUlLQS1QQzsyMDI1LTAxLTI4OzA4OjQ4OjQ5IFBNOzUwOzI0NDg="/>
+        <attribute name="edited" value="YW5uYWs7QUlLQS1QQzsyMDI1LTAxLTMwOzA2OjQ1OjI5IFBNOzU3OzI0NDE="/>
     </attributes>
     <function name="Main" type="None" variable="">
         <parameters/>
         <body>
             <declare name="answer, movieTitle" type="String" array="False" size=""/>
-            <declare name="childTicket, adultTicket, childQuantity, adultQuantity, movieCode" type="Integer" array="False" size=""/>
+            <assign variable="answer" expression="&quot;Y&quot;"/>
+            <declare name="childQuantity, adultQuantity, movieCode" type="Integer" array="False" size=""/>
             <declare name="adultTotal, childTotal, fnbTotal, studentDiscount" type="Real" array="False" size=""/>
-            <do expression="answer!=&quot;N&quot;">
+            <do expression="answer == &quot;Y&quot; || answer == &quot;y&quot;">
                 <output expression="&quot;Welcome to Rinlinada Cinema Booking System!&quot;" newline="True"/>
                 <assign variable="fnbTotal" expression="fnbCounter()"/>
                 <assign variable="movieCode" expression="movieSelection()"/>
@@ -29,18 +30,27 @@
                 <output expression="&quot;-----------------------------------------------------------------------------&quot;" newline="True"/>
                 <output expression="&quot;---------------------------------RECEIPT---------------------------------&quot;" newline="True"/>
                 <output expression="&quot;-----------------------------------------------------------------------------&quot;" newline="True"/>
-                <output expression="&quot;MOVIE TITLE: &quot;&amp;movieTitle" newline="True"/>
-                <output expression="&quot;ADULT TICKETS PURCHASED: &quot;&amp;adultQuantity" newline="True"/>
-                <output expression="&quot;CHILD TICKETS PURCHASED: &quot;&amp;childQuantity" newline="True"/>
-                <output expression="&quot;ADULT TOTAL (RM): &quot;&amp;adultTotal" newline="True"/>
-                <output expression="&quot;CHILD TOTAL (RM): &quot;&amp;childTotal" newline="True"/>
-                <output expression="&quot;AMOUNT TO BE PAID FOR F&amp;B (RM): &quot;&amp;fnbTotal" newline="True"/>
-                <output expression="&quot;TOTAL AMOUNT TO BE PAID (RM): &quot;&amp;fnbTotal + ((adultTotal + childTotal) - studentDiscount)" newline="True"/>
+                <output expression="&quot;MOVIE TITLE : &quot;&amp;movieTitle" newline="True"/>
+                <output expression="&quot;ADULT TICKETS PURCHASED : &quot;&amp;adultQuantity" newline="True"/>
+                <output expression="&quot;CHILD TICKETS PURCHASED : &quot;&amp;childQuantity" newline="True"/>
+                <output expression="&quot;ADULT TOTAL (RM) : &quot;&amp;adultTotal" newline="True"/>
+                <output expression="&quot;CHILD TOTAL (RM) : &quot;&amp;childTotal" newline="True"/>
+                <output expression="&quot;AMOUNT TO BE PAID FOR F&amp;B (RM) : &quot;&amp;fnbTotal" newline="True"/>
+                <output expression="&quot;TOTAL AMOUNT TO BE PAID (RM) : &quot;&amp;fnbTotal + ((adultTotal + childTotal) - studentDiscount)" newline="True"/>
                 <output expression="&quot;-----------------------------------------------------------------------------&quot;" newline="True"/>
                 <output expression="&quot;-----------------------------------------------------------------------------&quot;" newline="True"/>
                 <output expression="&quot;-----------------------------------------------------------------------------&quot;" newline="True"/>
-                <output expression="&quot;Would you like to make another purchase? (Y/N)&quot;" newline="True"/>
-                <input variable="answer"/>
+                <do expression="answer != &quot;Y&quot; &amp;&amp; answer != &quot;y&quot; &amp;&amp; answer != &quot;N&quot; &amp;&amp; answer != &quot;n&quot;">
+                    <output expression="&quot;Would you like to make another purchase? [Y/N]&quot;" newline="True"/>
+                    <output expression="&quot;Your choice : &quot;" newline="True"/>
+                    <input variable="answer"/>
+                    <if expression="answer != &quot;Y&quot; &amp;&amp; answer != &quot;y&quot; &amp;&amp; answer != &quot;N&quot; &amp;&amp; answer != &quot;n&quot;">
+                        <then>
+                            <output expression="&quot;Please enter only Y or N&quot;" newline="True"/>
+                        </then>
+                        <else/>
+                    </if>
+                </do>
             </do>
             <output expression="&quot;Thank you for ordering with Rinlinada Cinema Booking System. Goodbye!&quot;" newline="True"/>
         </body>
@@ -145,17 +155,24 @@
             <assign variable="price[2]" expression="12"/>
             <declare name="answer" type="String" array="False" size=""/>
             <assign variable="answer" expression="&quot;0&quot;"/>
+            <declare name="fnbSet" type="String" array="False" size=""/>
+            <assign variable="fnbSet" expression="&quot;0&quot;"/>
             <declare name="fnbPrice, fnbTotal" type="Real" array="False" size=""/>
-            <declare name="fnbQuantity, fnbSet" type="Integer" array="False" size=""/>
+            <declare name="fnbQuantity" type="Integer" array="False" size=""/>
             <assign variable="fnbQuantity" expression="0"/>
-            <assign variable="fnbSet" expression="0"/>
             <output expression="&quot;-----------------------------------------------------------------------------&quot;" newline="True"/>
             <output expression="&quot;-----------------------FOOD AND BEVERAGES-----------------------&quot;" newline="True"/>
             <output expression="&quot;-----------------------------------------------------------------------------&quot;" newline="True"/>
-            <while expression="answer != &quot;Y&quot; &amp;&amp; answer != &quot;N&quot;">
+            <while expression="answer != &quot;Y&quot; &amp;&amp; answer != &quot;y&quot; &amp;&amp; answer != &quot;N&quot; &amp;&amp; answer != &quot;n&quot;">
                 <output expression="&quot;Would you like to order any food and beverages? [Y/N]&quot;" newline="True"/>
                 <output expression="&quot;Your choice :&quot;" newline="True"/>
                 <input variable="answer"/>
+                <if expression="answer != &quot;Y&quot; &amp;&amp; answer != &quot;y&quot; &amp;&amp; answer != &quot;N&quot; &amp;&amp; answer != &quot;n&quot;">
+                    <then>
+                        <output expression="&quot;Please enter Y or N only.&quot;" newline="True"/>
+                    </then>
+                    <else/>
+                </if>
                 <if expression="answer == &quot;N&quot; || answer == &quot;n&quot;">
                     <then>
                         <output expression="&quot;You did not order any food and beverages.&quot;" newline="True"/>
@@ -164,7 +181,7 @@
                     <else>
                         <if expression="answer == &quot;Y&quot; || answer == &quot;y&quot;">
                             <then>
-                                <while expression="fnbSet &lt; 1 || fnbSet &gt; 3">
+                                <while expression="fnbSet != &quot;1&quot; &amp;&amp; fnbSet != &quot;2&quot; &amp;&amp; fnbSet != &quot;3&quot;">
                                     <output expression="&quot;Please order any food and beverages set from the selection below.&quot;" newline="True"/>
                                     <declare name="i" type="Integer" array="False" size=""/>
                                     <for variable="i" start="0" end="2" direction="inc" step="1">
@@ -172,25 +189,31 @@
                                     </for>
                                     <output expression="&quot;Your food and beverages set choice :&quot;" newline="True"/>
                                     <input variable="fnbSet"/>
-                                    <output expression="&quot;The quantity of sets ordered: &quot;" newline="True"/>
-                                    <input variable="fnbQuantity"/>
-                                    <if expression="fnbSet &lt; 1 || fnbSet &gt; 3">
+                                    <if expression="fnbSet != &quot;1&quot; &amp;&amp; fnbSet != &quot;2&quot; &amp;&amp; fnbSet != &quot;3&quot;">
                                         <then>
                                             <output expression="&quot;Please enter a valid code for the set you want.&quot;" newline="True"/>
+                                            <assign variable="fnbPrice" expression="0"/>
                                         </then>
                                         <else>
-                                            <if expression="fnbSet == 1">
+                                            <output expression="&quot;The quantity of sets ordered: &quot;" newline="True"/>
+                                            <input variable="fnbQuantity"/>
+                                            <if expression="fnbSet == &quot;1&quot;">
                                                 <then>
                                                     <assign variable="fnbPrice" expression="14.50"/>
                                                 </then>
                                                 <else>
-                                                    <if expression="fnbSet == 2">
+                                                    <if expression="fnbSet == &quot;2&quot;">
                                                         <then>
                                                             <assign variable="fnbPrice" expression="2.50"/>
                                                         </then>
                                                         <else>
-                                                            <assign variable="fnbSet" expression="3"/>
-                                                            <assign variable="fnbPrice" expression="12.00"/>
+                                                            <if expression="fnbSet == &quot;3&quot;">
+                                                                <then>
+                                                                    <assign variable="fnbSet" expression="3"/>
+                                                                    <assign variable="fnbPrice" expression="12.00"/>
+                                                                </then>
+                                                                <else/>
+                                                            </if>
                                                         </else>
                                                     </if>
                                                 </else>
@@ -200,9 +223,7 @@
                                     <assign variable="fnbTotal" expression="fnbPrice * fnbQuantity"/>
                                 </while>
                             </then>
-                            <else>
-                                <output expression="&quot;Please only input either Y or N&quot;" newline="True"/>
-                            </else>
+                            <else/>
                         </if>
                     </else>
                 </if>
@@ -251,19 +272,24 @@
             <output expression="&quot;-----------------------------------------------------------------------------&quot;" newline="True"/>
             <output expression="&quot;----------------------STUDENTS GET 15% OFF!----------------------&quot;" newline="True"/>
             <output expression="&quot;-----------------------------------------------------------------------------&quot;" newline="True"/>
-            <do expression="movieCode &lt; 0 &amp;&amp; movieCode &gt; 2 &amp;&amp; movieCode != 0">
-                <output expression="&quot;Please choose the movie you would like to watch from the selection below.&quot;" newline="True"/>
-                <declare name="i" type="Integer" array="False" size=""/>
-                <for variable="i" start="0" end="1" direction="inc" step="1">
-                    <output expression="&quot;[&quot; &amp; i + 1 &amp; &quot;] &quot; &amp; movies[i] &amp; &quot; : RM&quot; &amp; adultprices[i] &amp; &quot; (Adult) // RM&quot; &amp; childprices[i] &amp; &quot; (Child)&quot;" newline="True"/>
-                </for>
-                <output expression="&quot;Children: 12 and under // Adult: 13 and above&quot;" newline="True"/>
-                <output expression="&quot;If you don't want to purchase any movie tickets, enter 0.&quot;" newline="True"/>
-                <output expression="&quot;Your movie choice :&quot;" newline="True"/>
+            <output expression="&quot;Please choose the movie you would like to watch from the selection below.&quot;" newline="True"/>
+            <declare name="i" type="Integer" array="False" size=""/>
+            <for variable="i" start="0" end="1" direction="inc" step="1">
+                <output expression="&quot;[&quot; &amp; i + 1 &amp; &quot;] &quot; &amp; movies[i] &amp; &quot; : RM&quot; &amp; adultprices[i] &amp; &quot; (Adult) // RM&quot; &amp; childprices[i] &amp; &quot; (Child)&quot;" newline="True"/>
+            </for>
+            <output expression="&quot;Children: 12 and under // Adult: 13 and above&quot;" newline="True"/>
+            <output expression="&quot;If you don't want to purchase any movie tickets, enter 0.&quot;" newline="True"/>
+            <while expression="movieCode &lt; 0 || movieCode &gt; 2">
+                <output expression="&quot;Your movie choice : &quot;" newline="True"/>
                 <input variable="movieCode"/>
-                <output expression="&quot;Please enter a valid code. (0/1/2)&quot;" newline="True"/>
-                <input variable="movieCode"/>
-            </do>
+                <if expression="movieCode &lt; 0 || movieCode &gt; 2">
+                    <then>
+                        <output expression="&quot;Please enter a valid code. (0/1/2)&quot;" newline="True"/>
+                        <input variable="movieCode"/>
+                    </then>
+                    <else/>
+                </if>
+            </while>
         </body>
     </function>
     <function name="student" type="Real" variable="studentDiscount">
@@ -275,22 +301,31 @@
         <body>
             <declare name="studentDiscount" type="Real" array="False" size=""/>
             <declare name="studentAnswer" type="String" array="False" size=""/>
+            <assign variable="studentAnswer" expression="&quot;0&quot;"/>
             <if expression="moviecode != 0">
                 <then>
-                    <output expression="&quot;Are you a student? (Y/N)&quot;" newline="True"/>
-                    <output expression="&quot;Your answer :&quot;" newline="True"/>
-                    <input variable="studentAnswer"/>
-                    <if expression="studentAnswer = &quot;Y&quot; || studentAnswer = &quot;y&quot;">
+                    <while expression="studentAnswer != &quot;Y&quot; &amp;&amp; studentAnswer != &quot;y&quot; &amp;&amp; studentAnswer != &quot;N&quot; &amp;&amp; studentAnswer != &quot;n&quot;">
+                        <output expression="&quot;Are you a student? [Y/N]&quot;" newline="True"/>
+                        <output expression="&quot;Your answer :&quot;" newline="True"/>
+                        <input variable="studentAnswer"/>
+                        <if expression="studentAnswer != &quot;Y&quot; &amp;&amp; studentAnswer != &quot;y&quot; &amp;&amp; studentAnswer != &quot;N&quot; &amp;&amp; studentAnswer != &quot;n&quot;">
+                            <then>
+                                <output expression="&quot;Please enter Y or N only.&quot;" newline="True"/>
+                            </then>
+                            <else/>
+                        </if>
+                    </while>
+                    <if expression="studentAnswer == &quot;Y&quot; || studentAnswer == &quot;y&quot;">
                         <then>
                             <assign variable="studentDiscount" expression="(adultTotal * 15/100) + (childTotal * 15/100)"/>
                         </then>
                         <else>
-                            <if expression="studentAnswer = &quot;N&quot; || studentAnswer = &quot;n&quot;">
+                            <if expression="studentAnswer == &quot;N&quot; || studentAnswer == &quot;n&quot;">
                                 <then>
                                     <assign variable="studentDiscount" expression="0"/>
                                 </then>
                                 <else>
-                                    <output expression="&quot;Please enter Y or N only.&quot;" newline="True"/>
+                                    <assign variable="studentDiscount" expression="0"/>
                                 </else>
                             </if>
                         </else>

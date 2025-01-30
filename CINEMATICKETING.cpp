@@ -165,7 +165,7 @@ float student(float adultTotal, float childTotal, int movieCode)
 {
 
 	float studentDiscount;
-	string studentAnswer;
+	string studentAnswer = "0";
 
 	if (movieCode != 0)
 	{
@@ -239,6 +239,8 @@ float fnbCounter()
 
 		cout << "You did not order any food and beverages." << endl;
 
+		fnbTotal = 0;
+
 		return 0;
 	}
 	else if (answer == "Y" || answer == "y")
@@ -265,18 +267,14 @@ float fnbCounter()
 			if (fnbSet != "1" && fnbSet != "2" && fnbSet != "3")
 			{
 				cout << "Please enter a valid code for the set you want." << endl;
+
+				fnbPrice = 0;
 			}
 		}
 
 		cout << "The quantity of sets ordered : ";
 		cin >> fnbQuantity;
 	}
-	else
-	{
-		cout << "Please enter Y or N only.";
-		cout << endl; // space
-	}
-
 	if (fnbSet == "1")
 	{
 
